@@ -1,0 +1,82 @@
+{
+  "name": "diffme-web-marketing",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@craco/craco": "^6.2.0",
+    "@headlessui/react": "^1.4.0",
+    "@heroicons/react": "^1.0.3",
+    "@sentry/browser": "^6.11.0",
+    "@stripe/react-stripe-js": "^1.4.1",
+    "@stripe/stripe-js": "^1.17.0",
+    "@tailwindcss/forms": "^0.3.3",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "@types/jest": "^26.0.15",
+    "@types/node": "^12.0.0",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "antd": "^4.16.12",
+    "autoprefixer": "^9",
+    "axios": "^0.21.1",
+    "bytes": "^3.1.0",
+    "diffme": "^1.0.0",
+    "dinero.js": "^1.9.0",
+    "firebase": "^8.9.1",
+    "libphonenumber-js": "^1.9.23",
+    "localforage": "^1.10.0",
+    "lodash": "^4.17.21",
+    "logrocket": "^2.0.0",
+    "moment": "^2.29.1",
+    "pluralize": "^8.0.0",
+    "postcss": "^7",
+    "pubnub": "^4.32.1",
+    "pubnub-react": "^2.1.0",
+    "react": "^17.0.2",
+    "react-device-detect": "^1.17.0",
+    "react-dom": "^17.0.2",
+    "react-query": "^3.19.6",
+    "react-redux": "^7.2.4",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "4.0.3",
+    "redux": "^4.1.1",
+    "redux-logger": "^3.0.6",
+    "redux-modal": "^4.0.0",
+    "redux-persist": "^6.0.0",
+    "redux-thunk": "^2.3.0",
+    "reselect": "^4.0.0",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat",
+    "typescript": "^4.1.2",
+    "web-vitals": "^1.0.1"
+  },
+  "scripts": {
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.172",
+    "@types/react-router-dom": "^5.1.8",
+    "@types/segment-analytics": "^0.0.34"
+  }
+}
