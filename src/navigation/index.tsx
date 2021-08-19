@@ -35,10 +35,12 @@ import Sidebar from "./Sidebar";
 import Login from "src/screens/Authentication/Login";
 import Signup from "src/screens/Authentication/Signup";
 import ForgotPassword from "src/screens/Authentication/ForgotPassword";
-import Home from "src/screens/Home";
+import LiveView from "src/screens/LiveView";
+import DataChanges from "src/screens/DataChanges";
 
 import { Firebase } from "src/utils";
 import LogRocket from "logrocket";
+import ReferenceDetails from "../screens/ReferenceDetails";
 
 const Intercom = window.Intercom;
 
@@ -281,32 +283,13 @@ function Dashboard() {
                     </button>
                 </div>
                 <main className="flex-1 relative z-0 overflow-y-auto focus:outline-none">
-                    {/* Page title & actions */}
-                    <div className="border-b border-gray-200 px-4 py-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8">
-                        <div className="flex-1 min-w-0">
-                            <h1 className="text-lg font-medium leading-6 text-gray-900 sm:truncate">
-                                Home
-                            </h1>
-                        </div>
-                        <div className="mt-4 flex sm:mt-0 sm:ml-4">
-                            <button
-                                type="button"
-                                className="order-1 ml-3 inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 sm:order-0 sm:ml-0"
-                            >
-                                Share
-                            </button>
-                            <button
-                                type="button"
-                                className="order-0 inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 sm:order-1 sm:ml-3"
-                            >
-                                Create
-                            </button>
-                        </div>
-                    </div>
-                    {/* Projects table (small breakpoint and up) */}
-                    <div className="hidden mt-8 sm:block">
-                        <Route exact component={Home} path="/dashboard" />
-                    </div>
+                    <Route exact component={LiveView} path="/live" />
+                    <Route exact component={DataChanges} path="/changes" />
+                    <Route
+                        exact
+                        component={ReferenceDetails}
+                        path="/references/:id"
+                    />
                 </main>
             </div>
         </div>
@@ -391,7 +374,6 @@ function Navigation(props: Props) {
                             return <div> Logging Out... </div>;
                         }}
                     />
-                    <Route exact component={Home} path="/" />
                     <Route
                         exact
                         component={ForgotPassword}
