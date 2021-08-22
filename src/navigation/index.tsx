@@ -37,6 +37,9 @@ import Signup from "src/screens/Authentication/Signup";
 import ForgotPassword from "src/screens/Authentication/ForgotPassword";
 import LiveView from "src/screens/LiveView";
 import DataChanges from "src/screens/DataChanges";
+import Team from "src/screens/Team";
+
+import SearchModal from "src/modals/SearchModal";
 
 import { Firebase } from "src/utils";
 import LogRocket from "logrocket";
@@ -133,6 +136,8 @@ function Dashboard() {
 
     return (
         <div className="relative h-screen flex overflow-hidden bg-white">
+            <SearchModal />
+
             <Transition.Root show={sidebarOpen} as={Fragment}>
                 <Dialog
                     as="div"
@@ -285,6 +290,7 @@ function Dashboard() {
                 <main className="flex-1 relative z-0 overflow-y-auto focus:outline-none">
                     <Route exact component={LiveView} path="/live" />
                     <Route exact component={DataChanges} path="/changes" />
+                    <Route exact component={Team} path="/team" />
                     <Route
                         exact
                         component={ReferenceDetails}

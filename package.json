@@ -29,6 +29,7 @@
     "lodash": "^4.17.21",
     "logrocket": "^2.0.0",
     "moment": "^2.29.1",
+    "moment-timezone": "^0.5.33",
     "pluralize": "^8.0.0",
     "postcss": "^7",
     "pubnub": "^4.32.1",
@@ -36,10 +37,12 @@
     "react": "^17.0.2",
     "react-device-detect": "^1.17.0",
     "react-dom": "^17.0.2",
+    "react-json-view": "^1.21.3",
     "react-query": "^3.19.6",
     "react-redux": "^7.2.4",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
+    "react-use-clipboard": "^1.0.7",
     "redux": "^4.1.1",
     "redux-logger": "^3.0.6",
     "redux-modal": "^4.0.0",
@@ -48,6 +51,7 @@
     "reselect": "^4.0.0",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat",
     "typescript": "^4.1.2",
+    "use-clipboard-copy": "^0.2.0",
     "web-vitals": "^1.0.1"
   },
   "scripts": {

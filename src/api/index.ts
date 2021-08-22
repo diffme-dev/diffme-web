@@ -2,7 +2,7 @@ import config from "src/config";
 
 import { getAuthToken } from "../utils/Firebase";
 import ApiV1 from "./module/v1";
-import diffmeSDK from "diffme";
+import diffmeSDK from "./diffme";
 
 export * from "./interfaces";
 
