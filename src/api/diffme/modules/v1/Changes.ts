@@ -1,6 +1,13 @@
 import { FailureOrSuccess } from "../../core";
 import { Module } from "../../domain/module";
-import { Request } from "../../shared/Request";
+
+export type ChangeSearchRequest = {
+    limit?: number;
+    reference_ids?: string[];
+    editor?: string;
+    field?: string;
+    value?: string;
+};
 
 export type ChangeSearchResponse = {
     changes: any[];
@@ -11,10 +18,6 @@ export type ChangeForReferenceId = {
 };
 
 class Changes extends Module {
-    constructor(request: Request) {
-        super(request);
-    }
-
     list = async (
         query: any
     ): Promise<FailureOrSuccess<Error, ChangeSearchResponse>> =>
@@ -23,9 +26,12 @@ class Changes extends Module {
             query,
         });
 
-    search = async (): Promise<FailureOrSuccess<Error, ChangeSearchResponse>> =>
+    search = async (
+        query: ChangeSearchRequest
+    ): Promise<FailureOrSuccess<Error, ChangeSearchResponse>> =>
         this.request.get({
             route: `/changes/search`,
+            query,
         });
 
     forReferenceId = (

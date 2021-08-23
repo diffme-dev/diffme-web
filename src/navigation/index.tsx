@@ -10,7 +10,7 @@ import {
     setUserAuthState,
     setUserAuthStateChanged,
     setUserLoggedIn,
-} from "src/redux/user";
+} from "src/redux/reducers/user";
 
 import { Dialog, Menu, Transition } from "@headlessui/react";
 import {
@@ -20,16 +20,6 @@ import {
     ViewListIcon,
     XIcon,
 } from "@heroicons/react/outline";
-import {
-    ChevronRightIcon,
-    DotsVerticalIcon,
-    DuplicateIcon,
-    PencilAltIcon,
-    SearchIcon,
-    SelectorIcon,
-    TrashIcon,
-    UserAddIcon,
-} from "@heroicons/react/solid";
 import Sidebar from "./Sidebar";
 
 import Login from "src/screens/Authentication/Login";
@@ -44,6 +34,7 @@ import SearchModal from "src/modals/SearchModal";
 import { Firebase } from "src/utils";
 import LogRocket from "logrocket";
 import ReferenceDetails from "../screens/ReferenceDetails";
+import Settings from "src/screens/Settings";
 
 const Intercom = window.Intercom;
 
@@ -56,11 +47,13 @@ const navigation = [
     { name: "My tasks", href: "#", icon: ViewListIcon, current: false },
     { name: "Recent", href: "#", icon: ClockIcon, current: false },
 ];
+
 const teams = [
     { name: "Engineering", href: "#", bgColorClass: "bg-indigo-500" },
     { name: "Human Resources", href: "#", bgColorClass: "bg-green-500" },
     { name: "Customer Success", href: "#", bgColorClass: "bg-yellow-500" },
 ];
+
 const projects = [
     {
         id: 1,
@@ -100,7 +93,6 @@ const projects = [
     },
     // More projects...
 ];
-const pinnedProjects = projects.filter((project) => project.pinned);
 
 function classNames(...classes: any[]) {
     return classes.filter(Boolean).join(" ");
@@ -291,10 +283,17 @@ function Dashboard() {
                     <Route exact component={LiveView} path="/live" />
                     <Route exact component={DataChanges} path="/changes" />
                     <Route exact component={Team} path="/team" />
+                    <Route exact component={DataChanges} path="/references" />
+                    <Route exact component={Settings} path="/settings" />
+                    <Route
+                        exact
+                        component={DataChanges}
+                        path="/references/:id"
+                    />
                     <Route
                         exact
                         component={ReferenceDetails}
-                        path="/references/:id"
+                        path="/references/details/:id"
                     />
                 </main>
             </div>

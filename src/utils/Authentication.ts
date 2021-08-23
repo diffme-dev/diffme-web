@@ -7,7 +7,7 @@ import {
     FailureOrSuccess,
     success,
 } from "src/core/logic/FailureOrSuccess";
-import { setUser, setUserLoggedIn } from "src/redux/user";
+import { setUser, setUserLoggedIn } from "src/redux/reducers/user";
 
 import Firebase, { firebase } from "./Firebase";
 

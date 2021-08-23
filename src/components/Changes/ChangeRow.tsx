@@ -1,48 +1,17 @@
 import React, { Fragment } from "react";
-import { RefreshIcon, TrashIcon, PlusCircleIcon } from "@heroicons/react/solid";
+import {
+    RefreshIcon,
+    TrashIcon,
+    PlusCircleIcon,
+    ChevronDoubleRightIcon,
+    ArrowRightIcon,
+} from "@heroicons/react/solid";
 import { diffme } from "src/api";
 import { useQuery } from "react-query";
 import moment from "moment-timezone";
 import { Helpers } from "src/utils";
-
-// Access the key, status and page variables in your query function!
-function getChanges({ queryKey }) {
-    const [_key] = queryKey;
-    return diffme.changes.list({
-        limit: 50,
-    });
-}
-
-function LiveChanges() {
-    const { data, isLoading } = useQuery(["changes", {}], getChanges, {
-        enabled: true,
-    });
-
-    const changes = data?.isSuccess() ? data.value.changes : [];
-
-    return (
-        <div className="flow-root px-3 py-6">
-            <ul role="list" className="-mb-8">
-                {changes.map((change, index) => (
-                    <li key={change.id}>
-                        <div className="relative pb-6">
-                            {index !== changes.length - 1 ? (
-                                <span
-                                    className="absolute top-5 left-5 -ml-px h-full w-0.5 bg-gray-200"
-                                    aria-hidden="true"
-                                />
-                            ) : null}
-
-                            <div className="relative flex items-start space-x-3">
-                                <Change change={change} />
-                            </div>
-                        </div>
-                    </li>
-                ))}
-            </ul>
-        </div>
-    );
-}
+import { isUndefined } from "lodash/fp";
+import { isNull } from "lodash";
 
 const ChangeIcon = ({ change }) => {
     if (change.diff.op === "replace") {
@@ -66,7 +35,7 @@ const ChangeIcon = ({ change }) => {
         );
     }
 
-    return null;
+    return <RefreshIcon className="h-5 w-5 text-gray-500" aria-hidden="true" />;
 };
 
 type ChangeProps = { change: any };
@@ -75,7 +44,7 @@ const getSanitizedPath = (change) => {
     const path: string = change.diff.path;
 
     // remove first character and replace / with >
-    return path.slice(1).replace(/\//g, " > ");
+    return path.slice(1).replace(/\//g, ".");
 };
 
 const getOperation = (change) => {
@@ -98,7 +67,6 @@ const getOperation = (change) => {
 
 const Change = React.memo<ChangeProps>(
     ({ change }) => {
-        console.log("CHANGE: ", change);
         const path = getSanitizedPath(change);
         const operation = getOperation(change);
 
@@ -142,6 +110,10 @@ const Change = React.memo<ChangeProps>(
 );
 
 const getValueStringified = (val: any) => {
+    if (!val && isNull(val)) {
+        return "null";
+    }
+
     if (typeof val === "string") {
         return val;
     }
@@ -152,23 +124,29 @@ const getValueStringified = (val: any) => {
 const Values = ({ change }) => {
     const oldValue = change.diff.old_value;
     const newValue = change.diff.value;
+    // null case is ALLOWED so only check undefed
+    const hasOldValue = !isUndefined(oldValue);
+    const hasNewValue = !isUndefined(newValue);
 
     return (
-        <div className="flex flex-row items-center">
+        <div className="flex flex-row items-center mx-3">
             {oldValue && (
                 <div className="text-base font-bold text-gray-600">
                     {getValueStringified(oldValue)}
                 </div>
             )}
 
-            {oldValue && (
-                <div className="text-base font-normal text-gray-600 mx-2">
-                    to
+            {hasOldValue && hasNewValue && (
+                <div className="text-base font-normal text-gray-600 mx-3">
+                    <ChevronDoubleRightIcon
+                        className="h-5 w-5 text-gray-500"
+                        aria-hidden="true"
+                    />
                 </div>
             )}
 
             {newValue && (
-                <div className="text-base text-gray-600 mx-2">
+                <div className="text-base  font-bold text-gray-600">
                     {getValueStringified(newValue)}
                 </div>
             )}
@@ -176,4 +154,4 @@ const Values = ({ change }) => {
     );
 };
 
-export default LiveChanges;
+export default Change;

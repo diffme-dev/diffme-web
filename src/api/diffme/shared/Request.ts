@@ -1,5 +1,7 @@
 import axios, { AxiosInstance } from "axios";
 import { failure, FailureOrSuccess, success } from "../core";
+import axiosRetry from "axios-retry";
+import qs from "querystring";
 
 type Dependencies = {
     domain: string;
@@ -24,12 +26,24 @@ class Request {
         this.domain = domain;
         this.apiKey = apiKey;
         this.version = version;
-        this.client = axios.create({
+
+        const client = axios.create({
             baseURL: domain,
             headers: {
                 Authorization: "Bearer " + apiKey,
             },
+            paramsSerializer: (params) => {
+                return qs.stringify(params);
+            },
         });
+
+        // set to allow 3 retries
+        axiosRetry(client, {
+            retries: 3,
+            retryDelay: axiosRetry.exponentialDelay,
+        });
+
+        this.client = client;
     }
 
     getDomain(): string {

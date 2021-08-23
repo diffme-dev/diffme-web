@@ -1,12 +1,9 @@
 import { Fragment, useState } from "react";
 import { Dialog, Menu, Transition } from "@headlessui/react";
 import {
-    ClockIcon,
-    HomeIcon,
-    MenuAlt1Icon,
-    ViewListIcon,
-    XIcon,
+    CogIcon,
     PlayIcon,
+    UserIcon,
     DatabaseIcon,
     UserGroupIcon,
     CodeIcon,
@@ -22,7 +19,7 @@ import {
     UserAddIcon,
 } from "@heroicons/react/solid";
 import { useDispatch, useSelector } from "react-redux";
-import { getUser } from "../redux/user";
+import { getUser } from "src/redux/reducers/user";
 import { show } from "redux-modal";
 import { Link } from "react-router-dom";
 
@@ -63,14 +60,20 @@ function Sidebar() {
             icon: UserGroupIcon,
             current: false,
         },
+        {
+            name: "Settings",
+            href: "/settings",
+            icon: CogIcon,
+            current: false,
+        },
     ];
 
     return (
         <div className="hidden lg:flex lg:flex-shrink-0">
             <div className="flex flex-col w-64 border-r border-gray-200 pt-8 pb-4 bg-gray-100 dark:bg-gray-900">
                 <div className="flex items-center flex-shrink-0 px-5">
-                    <h3 className="font-black text-3xl text-gray-600">
-                        diffme
+                    <h3 className="code font-black text-xl text-gray-800">
+                        {"diffme"}
                     </h3>
                 </div>
                 {/* Sidebar component, swap this element with another sidebar if you like */}

@@ -1,7 +1,7 @@
 import { Request } from "../shared/Request";
 
 export class Module {
-    public request: Request;
+    protected request: Request;
 
     constructor(request: Request) {
         this.request = request;

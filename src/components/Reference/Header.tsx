@@ -4,6 +4,7 @@ import {
     CodeIcon,
     PlayIcon,
     DatabaseIcon,
+    SearchIcon,
 } from "@heroicons/react/solid";
 import Button from "src/components/styled/Button";
 import { ActiveTab } from "./utils";
@@ -16,16 +17,21 @@ function classNames(...classes) {
 type HeaderProps = {
     onSelectTab: (tab: ActiveTab) => void;
     activeTab: ActiveTab;
+    onRefresh: () => void;
 };
 
-export default function Header({ onSelectTab, activeTab }: HeaderProps) {
+export default function Header({
+    onRefresh,
+    onSelectTab,
+    activeTab,
+}: HeaderProps) {
     const clipboard = useClipboard({
         copiedTimeout: 5000, // 5 seconds timeout
     });
 
     const tabs = [
         {
-            name: "Latest Snapshot",
+            name: "Latest Data",
             key: "latest_snapshot",
             icon: DatabaseIcon,
             onClick: () => onSelectTab("latest_snapshot"),
@@ -39,11 +45,18 @@ export default function Header({ onSelectTab, activeTab }: HeaderProps) {
         //     current: activeTab === "change_set",
         // },
         {
-            name: "Data Diffs",
+            name: "Changes",
             key: "live_changes",
             icon: CodeIcon,
-            onClick: () => onSelectTab("live_changes"),
-            current: activeTab === "live_changes",
+            onClick: () => onSelectTab("changes"),
+            current: activeTab === "changes",
+        },
+        {
+            name: "Search changes",
+            key: "search",
+            icon: SearchIcon,
+            onClick: () => onSelectTab("search"),
+            current: activeTab === "search",
         },
     ];
 
@@ -68,6 +81,7 @@ export default function Header({ onSelectTab, activeTab }: HeaderProps) {
                 <div className="w-auto">
                     <Button
                         label="Refresh"
+                        onClick={onRefresh}
                         icon={
                             <RefreshIcon
                                 className="ml-3 -mr-1 h-5 w-5"

@@ -14,10 +14,6 @@ const api = new ApiV1({
     domain,
 });
 
-export const diffme = diffmeSDK({
-    version: "v1",
-    domain: "http://localhost:3001",
-    apiKey: "",
-});
+export const diffme = api.diffme;
 
 export default api;

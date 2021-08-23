@@ -20,10 +20,12 @@
     "antd": "^4.16.12",
     "autoprefixer": "^9",
     "axios": "^0.21.1",
+    "axios-retry": "^3.1.9",
     "bytes": "^3.1.0",
     "diffme": "^1.0.0",
     "dinero.js": "^1.9.0",
     "firebase": "^8.9.1",
+    "formik": "^2.2.9",
     "libphonenumber-js": "^1.9.23",
     "localforage": "^1.10.0",
     "lodash": "^4.17.21",
@@ -34,6 +36,7 @@
     "postcss": "^7",
     "pubnub": "^4.32.1",
     "pubnub-react": "^2.1.0",
+    "query-string": "^7.0.1",
     "react": "^17.0.2",
     "react-device-detect": "^1.17.0",
     "react-dom": "^17.0.2",
@@ -52,7 +55,8 @@
     "tailwindcss": "npm:@tailwindcss/postcss7-compat",
     "typescript": "^4.1.2",
     "use-clipboard-copy": "^0.2.0",
-    "web-vitals": "^1.0.1"
+    "web-vitals": "^1.0.1",
+    "yup": "^0.32.9"
   },
   "scripts": {
     "start": "craco start",

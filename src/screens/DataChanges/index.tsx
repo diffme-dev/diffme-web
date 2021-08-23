@@ -1,34 +1,18 @@
-import { Fragment, useState } from "react";
-import { Dialog, Transition } from "@headlessui/react";
-import {
-    CalendarIcon,
-    CogIcon,
-    HomeIcon,
-    MapIcon,
-    MenuIcon,
-    SearchCircleIcon,
-    SpeakerphoneIcon,
-    UserGroupIcon,
-    ViewGridAddIcon,
-    XIcon,
-} from "@heroicons/react/outline";
-import {
-    ChevronLeftIcon,
-    FilterIcon,
-    MailIcon,
-    PhoneIcon,
-    SearchIcon,
-} from "@heroicons/react/solid";
-import Timeline from "./Timeline";
-import { diffme } from "../../api";
-import { useQuery } from "react-query";
-import moment from "moment-timezone";
-import ActiveChange from "./ActiveChange";
+import { SearchIcon } from "@heroicons/react/solid";
+import MainFeed from "./MainFeed";
+import Reference from "src/components/Reference";
 import { useDispatch } from "react-redux";
 import { show } from "redux-modal";
+import { useRouteMatch } from "react-router-dom";
+
+type MatchParams = {
+    id?: string;
+};
 
 export default function DataChanges() {
     const dispatch = useDispatch();
+    const match = useRouteMatch<MatchParams>();
+    const { id } = match.params || {};
 
     const onClickSearch = () => {
         dispatch(show("SearchModal"));
@@ -60,7 +44,7 @@ export default function DataChanges() {
                                             name="search"
                                             onClick={onClickSearch}
                                             id="search"
-                                            className="py-3 bg-gray-100 focus:ring-pink-500 focus:border-pink-500 block w-full pl-10 sm:text-sm border-gray-300 text-left rounded-md"
+                                            className="py-3 bg-gray-100 focus:ring-pink-500 focus:border-pink-500 block w-full pl-10 sm:text-sm border-gray-300 text-left rounded-xl"
                                             placeholder="Search"
                                         >
                                             <div className="opacity-40 font-semibold text-small">
@@ -72,59 +56,16 @@ export default function DataChanges() {
                             </form>
                         </div>
 
-                        <ChangeList />
+                        <MainFeed />
                     </aside>
 
-                    <ActiveChange />
+                    {id ? (
+                        <Reference referenceId={id} />
+                    ) : (
+                        <div>no ref selected...</div>
+                    )}
                 </div>
             </div>
         </div>
     );
 }
-
-// Access the key, status and page variables in your query function!
-function getChanges({ queryKey }) {
-    const [_key] = queryKey;
-    return diffme.changes.list("");
-}
-
-const ChangeList = () => {
-    const { data, isLoading } = useQuery(["changes", {}], getChanges, {
-        enabled: true,
-    });
-
-    const changes = data?.isSuccess() ? data.value.changes : [];
-
-    return (
-        <nav className="flex-1 min-h-0 overflow-y-auto" aria-label="Directory">
-            <ul role="list" className="relative z-0 divide-y divide-gray-200">
-                {changes.map((change) => (
-                    <li key={change.id}>
-                        <div className="relative px-6 py-5 flex items-center space-x-3 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-pink-500">
-                            <div className="flex-1 min-w-0">
-                                <a href="#" className="focus:outline-none">
-                                    {/* Extend touch target to entire panel */}
-                                    <span
-                                        className="absolute inset-0"
-                                        aria-hidden="true"
-                                    />
-                                    <p className="text-sm font-medium text-gray-900">
-                                        {change.reference_id}
-                                    </p>
-                                    <p className="text-sm text-gray-500 truncate">
-                                        Edited by {change.editor}
-                                    </p>
-                                </a>
-                            </div>
-                            <div>
-                                <p className="text-sm text-gray-500 truncate">
-                                    {moment(change.created_at).fromNow(false)}
-                                </p>
-                            </div>
-                        </div>
-                    </li>
-                ))}
-            </ul>
-        </nav>
-    );
-};

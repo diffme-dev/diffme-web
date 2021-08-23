@@ -1,12 +1,4 @@
-import {
-    CreditCardIcon,
-    OfficeBuildingIcon,
-    UserIcon,
-    UsersIcon,
-    BookOpenIcon,
-    PlayIcon,
-    DatabaseIcon,
-} from "@heroicons/react/solid";
+import { BookOpenIcon, PlayIcon, DatabaseIcon } from "@heroicons/react/solid";
 
 const tabs = [
     { name: "Latest Snapshot", href: "#", icon: DatabaseIcon, current: false },

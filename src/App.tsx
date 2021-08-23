@@ -20,7 +20,7 @@ import config, { isProduction } from "src/config";
 import pubnub from "src/utils/Pubnub";
 
 import Navigation from "./navigation";
-import reducers from "./redux";
+import reducers from "./redux/reducers";
 import Authentication from "./utils/Authentication";
 
 // Create persisted reducer and store
