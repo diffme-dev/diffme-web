@@ -180,8 +180,21 @@ async function loginWithEmail(
     }
 }
 
+async function sendForgotPassword(
+    email: string
+): Promise<FailureOrSuccess<Error, null>> {
+    try {
+        await Firebase.auth().sendPasswordResetEmail(email);
+
+        return success(null);
+    } catch (error) {
+        return failure(error);
+    }
+}
+
 const Authentication = {
     loginWithEmail,
+    sendForgotPassword,
     onAuthSuccess,
     facebook: thirdPartyAuth(new firebase.auth.FacebookAuthProvider()),
     google: thirdPartyAuth(new firebase.auth.GoogleAuthProvider()),

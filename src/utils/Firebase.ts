@@ -2,16 +2,17 @@ import firebase from "firebase";
 
 require("firebase/firestore");
 
-const authDomain = "auth.payup.rent"; // "payup-rent-7f1a0.firebaseapp.com"; //
+const authDomain = "auth.diffme.dev"; // "payup-rent-7f1a0.firebaseapp.com"; //
 
 const firebaseConfig: any = {
-    apiKey: "AIzaSyCUBfb8F4K4K_T34cMHhk_Lvai7_aigSRI",
-    authDomain,
-    projectId: "payup-rent-7f1a0",
-    storageBucket: "payup-rent-7f1a0.appspot.com",
-    messagingSenderId: "938567166674",
-    appId: "1:938567166674:web:93e2856905ec9edc479b0b",
-    measurementId: "G-8CSEV7ZEEY",
+    // TODO: fix this...
+    apiKey: "AIzaSyCjBKuDBEONq6YQVVxuYVyZBjosb1FKxrE",
+    authDomain: "diffme-prod.firebaseapp.com",
+    projectId: "diffme-prod",
+    storageBucket: "diffme-prod.appspot.com",
+    messagingSenderId: "351582553473",
+    appId: "1:351582553473:web:829a007ee6001d0ad31480",
+    measurementId: "G-TKJKWMTMMC",
 };
 
 const Firebase = firebase.initializeApp(firebaseConfig);

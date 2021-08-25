@@ -99,6 +99,10 @@ function classNames(...classes: any[]) {
 }
 
 const recordLogrocketUser = (user: any) => {
+    if (!user) {
+        return;
+    }
+
     LogRocket.identify(user.uid, {
         name: user.name,
         email: user.email,

@@ -82,10 +82,10 @@ function Search() {
 
                         <div className="mt-5 pb-2">
                             <p className="text-sm text-gray-500 text-left font-medium">
-                                💡 Tip: try typing in "editor:" to focus your
-                                search. For example,{" "}
+                                💡 Tip: try typing in "editor:" or "field:" to
+                                focus your search. For example,{" "}
                                 <div className="code text-red-600 font-semibold inline-block bg-gray-100 rounded-md px-2 py-1">
-                                    editor:andrew field:is_live value:true
+                                    editor:andrew field:name
                                 </div>
                             </p>
                         </div>

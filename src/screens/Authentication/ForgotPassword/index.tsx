@@ -1,18 +1,36 @@
-import { Formik } from "formik";
+import { Formik, FormikHelpers } from "formik";
 import { Link } from "react-router-dom";
 import Button from "src/components/styled/Button";
-import { INITIAL_USER } from "./form";
+import Authentication from "src/utils/Authentication";
+import { FormValues, INITIAL_USER, UserValidator } from "./form";
 
 function ForgotPassword() {
-    const onSubmit = () => {
-        // TODO:
-        alert("on submit");
+    const onSubmit = async (
+        values: FormValues,
+        formikHelpers: FormikHelpers<FormValues>
+    ) => {
+        formikHelpers.setSubmitting(true);
+
+        try {
+            await Authentication.sendForgotPassword(values.email);
+
+            formikHelpers.setStatus(
+                "Success! Check your email to reset your password."
+            );
+        } catch (err) {
+        } finally {
+            formikHelpers.setSubmitting(false);
+        }
     };
 
     const getInitialState = () => ({ ...INITIAL_USER });
 
     return (
-        <Formik initialValues={getInitialState()} onSubmit={onSubmit}>
+        <Formik
+            validationSchema={UserValidator}
+            initialValues={getInitialState()}
+            onSubmit={onSubmit}
+        >
             {(props) => {
                 return (
                     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -71,6 +89,12 @@ function ForgotPassword() {
                                             className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                                         />
                                     </div>
+
+                                    {props.status && (
+                                        <h3 className="font-semibold text-green-500">
+                                            {props.status}
+                                        </h3>
+                                    )}
                                 </form>
                             </div>
                         </div>

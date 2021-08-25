@@ -1,6 +1,4 @@
 import _ from "lodash";
-import fp from "lodash/fp";
-import { createSelector } from "reselect";
 import api from "src/api";
 
 // Constants
@@ -87,13 +85,15 @@ export default function reducer(state = initialState, action: any = {}) {
 
 export const fetchUser = () => {
     return async (dispatch) => {
-        const { user } = await api.users.me();
-        dispatch(setUser(user));
+        const response = await api.diffme.users.me();
 
-        // fetch active payment method if the user has one
-        if (user.activePaymentMethodId) {
-            dispatch(fetchActivePaymentMethod());
+        if (response.isFailure()) {
+            return;
         }
+
+        const user = response.value.user;
+
+        dispatch(setUser(user));
 
         return user;
     };
