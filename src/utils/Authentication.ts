@@ -72,26 +72,22 @@ export const onAuthSuccess = async (
         }
     }
 
-    const { exists } = await api.users.exists(firebaseUser.uid);
+    const response = await api.diffme.users.create({
+        email: firebaseUser.email,
+        uid: firebaseUser.uid,
+        name: firebaseUser.displayName,
+        first_name: firstName,
+        last_name: lastName,
+        profile_url: firebaseUser.photoURL,
+        phone_number: firebaseUser.phoneNumber,
+        register: true,
+        ...params,
+    });
 
-    // Create user if doesn't exist
-    if (!exists) {
-        const { user } = await api.users.create({
-            email: firebaseUser.email,
-            uid: firebaseUser.uid,
-            name: firebaseUser.displayName,
-            firstName: firstName,
-            lastName: lastName,
-            profileUrl: firebaseUser.photoURL,
-            phoneNumber: firebaseUser.phoneNumber,
-            ...params,
-        });
+    if (response.isSuccess()) {
+        const user = response.value.user;
 
-        window.analytics.alias(user.uid);
-        store.dispatch(setUserLoggedIn(true));
-        store.dispatch(setUser(user));
-    } else {
-        const { user } = await api.users.me();
+        // window.analytics.alias(user.uid);
         store.dispatch(setUserLoggedIn(true));
         store.dispatch(setUser(user));
     }
@@ -198,6 +194,7 @@ const Authentication = {
     onAuthSuccess,
     facebook: thirdPartyAuth(new firebase.auth.FacebookAuthProvider()),
     google: thirdPartyAuth(new firebase.auth.GoogleAuthProvider()),
+    github: thirdPartyAuth(new firebase.auth.GithubAuthProvider()),
     apple: thirdPartyAuth(new firebase.auth.OAuthProvider("apple.com")),
     listenForFirebaseRedirect,
     useFirebaseRedirectListener,

@@ -5,9 +5,7 @@ export const getAdobeApiKey = (): string => {
 const config = {
     freshchatToken: "3297e937-c659-4c16-b1b9-c72bcd46f843",
     env: process.env.REACT_APP_ENV || "local",
-    apiUrl: process.env.REACT_APP_API_URL || "https://api.payup.rent",
-    merchantAdminUrl:
-        process.env.REACT_APP_MERCHANT_ADMIN_URL || "https://api.payup.rent",
+    apiUrl: process.env.REACT_APP_API_URL || "http://localhost:3001",
     sentryDsn: process.env.REACT_APP_SENTRY_DSN,
     mapboxStyleUrl:
         "mapbox://styles/andrew-great-outdoors/ckouhiui6264x18ln9g8g9a2q",

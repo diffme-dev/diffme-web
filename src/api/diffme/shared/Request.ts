@@ -2,11 +2,13 @@ import axios, { AxiosInstance } from "axios";
 import { failure, FailureOrSuccess, success } from "../core";
 import axiosRetry from "axios-retry";
 import qs from "querystring";
+import { Oauth } from "../domain";
 
 type Dependencies = {
     domain: string;
     apiKey: string;
     version: string;
+    oauth: Oauth;
 };
 
 type RequestParams<QueryT, DataT, HeaderT> = {
@@ -20,12 +22,14 @@ class Request {
     private readonly domain: string;
     private readonly apiKey: string;
     private readonly version: string;
+    private readonly oauth: Oauth;
     private readonly client: AxiosInstance;
 
-    constructor({ domain, apiKey, version }: Dependencies) {
+    constructor({ domain, apiKey, version, oauth }: Dependencies) {
         this.domain = domain;
         this.apiKey = apiKey;
         this.version = version;
+        this.oauth = oauth;
 
         const client = axios.create({
             baseURL: domain,
@@ -54,12 +58,18 @@ class Request {
         return this.apiKey;
     }
 
-    getHeaders = <HeaderT>(headers: HeaderT): any => {
-        return {
+    getHeaders = async <HeaderT>(headers: HeaderT): Promise<any> => {
+        const token = await this.oauth.getJWTToken();
+
+        const allHeaders = {
             ...headers,
-            Authorization: "Bearer " + this.apiKey,
+            Authorization: "Bearer " + (token || this.apiKey),
             "Content-Type": "application/json",
         };
+
+        console.log("HEADERS: ", allHeaders);
+
+        return allHeaders;
     };
 
     getRoute = (route: string): string => `${this.version}${route}`;
@@ -80,7 +90,7 @@ class Request {
             const response = await this.client.get<ResponseT>(
                 this.getRoute(route),
                 {
-                    headers: this.getHeaders(headers),
+                    headers: await this.getHeaders(headers),
                     params: query,
                 }
             );
@@ -109,7 +119,7 @@ class Request {
                 this.getRoute(route),
                 data,
                 {
-                    headers: this.getHeaders(headers),
+                    headers: await this.getHeaders(headers),
                     params: query,
                 }
             );
@@ -128,16 +138,16 @@ class Request {
     >({
         route,
         headers,
-        query,
+        data,
     }: RequestParams<QueryT, DataT, HeaderT>): Promise<
         FailureOrSuccess<Error, ResponseT>
     > => {
         try {
             const response = await this.client.post<ResponseT>(
                 this.getRoute(route),
+                data,
                 {
-                    headers: this.getHeaders(headers),
-                    params: query,
+                    headers: await this.getHeaders(headers),
                 }
             );
 

@@ -1,4 +1,5 @@
 import { Request } from "../shared/Request";
+import { Oauth } from "./api";
 
 export class Module {
     protected request: Request;

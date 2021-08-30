@@ -28,6 +28,7 @@ import ForgotPassword from "src/screens/Authentication/ForgotPassword";
 import LiveView from "src/screens/LiveView";
 import DataChanges from "src/screens/DataChanges";
 import Team from "src/screens/Team";
+import CreateOrganization from "src/screens/CreateOrganization";
 
 import SearchModal from "src/modals/SearchModal";
 
@@ -387,6 +388,11 @@ function Navigation(props: Props) {
                         exact
                         component={ForgotPassword}
                         path="/forgot-password"
+                    />
+                    <Route
+                        exact
+                        component={CreateOrganization}
+                        path="/create-organization"
                     />
                     <Route exact component={Login} path="/login" />
                     <Route exact component={Signup} path="/sign-up" />

@@ -8,6 +8,7 @@ import Payments from "./Payments";
 import PaymentMethods from "./PaymentMethods";
 import diffmeSDK from "../../diffme";
 import { ApiModuleV1 } from "src/api/diffme/modules/v1";
+import { Firebase } from "src/utils";
 
 // Export the API module
 type Params = {
@@ -42,6 +43,20 @@ class PayupApi {
             version: "v1",
             domain: "http://localhost:3001",
             apiKey: "",
+            oauth: {
+                getJWTToken: async (): Promise<string | null> => {
+                    try {
+                        const user = await Firebase.auth().currentUser;
+
+                        const token = await user?.getIdToken(true);
+
+                        return token || null;
+                    } catch (err) {
+                        console.error(err);
+                        return null;
+                    }
+                },
+            },
         });
     }
 }

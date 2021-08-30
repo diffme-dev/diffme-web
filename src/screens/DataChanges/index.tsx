@@ -22,7 +22,7 @@ export default function DataChanges() {
         <div className="relative h-screen flex overflow-hidden bg-white">
             <div className="flex flex-col min-w-0 flex-1 overflow-hidden">
                 <div className="flex-1 relative z-0 flex overflow-hidden">
-                    <aside className="hidden xl:order-first xl:flex xl:flex-col flex-shrink-0 w-96 border-r border-gray-200">
+                    <aside className="xl:order-first xl:flex xl:flex-col flex-shrink-0 w-96 border-r border-gray-200">
                         <div className="border-b px-6 pt-5 pb-5">
                             <h2 className="text-lg font-medium text-gray-900">
                                 Search Recent Diffs
@@ -62,7 +62,7 @@ export default function DataChanges() {
                     {id ? (
                         <Reference referenceId={id} />
                     ) : (
-                        <div>no ref selected...</div>
+                        <div>Select a reference...</div>
                     )}
                 </div>
             </div>
